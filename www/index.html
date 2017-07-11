@@ -139,7 +139,7 @@
     <script src="js/bootstrap.min.js"></script>
 
     <script type="text/javascript">
-        $.getJSON('http://localhost:8080/api/product/get', function(data) {
+        $.getJSON('http://comprenacional.herokuapp.com/api/product/get', function(data) {
             $.each(data, function(index, element) {
                 $('#products').append('<div class="col-sm-4 col-lg-4 col-md-4"><div class="thumbnail"><img src="'+element.descripcion+'" alt=""><div class="caption"><h4 class="pull-right">$'+element.precio+'</h4><h4><a href="#" title="'+element.nombre+'">'+element.nombre+'</a></h4><p>See more snippets like this online store item at <a target="_blank" href="http://www.bootsnipp.com">Bootsnipp - http://ootsnipp.com</a>.</p></div><div class="ratings"><p class="pull-right">15 reviews</p><p><span class="glyphicon glyphicon-star"></span><span class="glyphicon lyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span></p></div></div></div>');
                 /*$('body').append($('<div>', {
