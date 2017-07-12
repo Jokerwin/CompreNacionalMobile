@@ -241,6 +241,7 @@
                 $('#img-item').attr('src',data.pictures[0].url);
                 $('#item-name').html(data.title);
                 $('#item-price').html('$'+data.price);
+                $('#item-desc').html('');
                 $.each(data.pictures, function(index, element) {
                     $('#item-desc').append('<img src="'+element.url+'" />');
                 });
