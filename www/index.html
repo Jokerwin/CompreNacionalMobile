@@ -39,19 +39,19 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Compre Nacional</a>
+                <a class="navbar-brand" href="/">Compre Nacional</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="#">About</a>
+                        <a href="/about.html">About</a>
                     </li>
                     <li>
-                        <a href="#">Services</a>
+                        <a href="/services.html">Services</a>
                     </li>
                     <li>
-                        <a href="#">Contact</a>
+                        <a href="/contact.html">Contact</a>
                     </li>
                 </ul>
             </div>
@@ -63,7 +63,7 @@
     <!-- Page Content -->
     <div class="container">
 
-        <div class="row">
+        <div class="row" id="item-list" style="display: block;">
 
             <div class="col-md-3">
                 <p class="lead">Categories</p>
@@ -113,6 +113,93 @@
 
         </div>
 
+        <div class="row" id="item-details" style="display: none;">
+
+            <a href="javascript:void(0)" class="btn btn-success" onclick="change();">Volver a la lista</a>
+
+            <div class="col-md-3">
+            </div>
+
+            <div class="col-md-9">
+
+                <div class="thumbnail">
+                    <img class="img-responsive" id="img-item" src="http://placehold.it/800x300" alt="">
+                    <div class="caption-full">
+                        <h4 class="pull-right" id="item-price">$24.99</h4>
+                        <h4><a href="#" id="item-name">Product Name</a>
+                        </h4>
+                        <p id="item-desc"></p>
+                    </div>
+                    <div class="ratings">
+                        <p class="pull-right">3 reviews</p>
+                        <p>
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span class="glyphicon glyphicon-star-empty"></span>
+                            4.0 stars
+                        </p>
+                    </div>
+                </div>
+
+                <div class="well">
+
+                    <div class="text-right">
+                        <a class="btn btn-success">Leave a Review</a>
+                    </div>
+
+                    <hr>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span class="glyphicon glyphicon-star-empty"></span>
+                            Anonymous
+                            <span class="pull-right">10 days ago</span>
+                            <p>This product was great in terms of quality. I would definitely buy another!</p>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span class="glyphicon glyphicon-star-empty"></span>
+                            Anonymous
+                            <span class="pull-right">12 days ago</span>
+                            <p>I've alredy ordered another one!</p>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span class="glyphicon glyphicon-star"></span>
+                            <span class="glyphicon glyphicon-star-empty"></span>
+                            Anonymous
+                            <span class="pull-right">15 days ago</span>
+                            <p>I've seen some better than this, but not at this price. I definitely recommend this item.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
     <!-- /.container -->
 
@@ -141,12 +228,34 @@
     <script type="text/javascript">
         $.getJSON('http://comprenacional.herokuapp.com/api/product/get', function(data) {
             $.each(data, function(index, element) {
-                $('#products').append('<div class="col-sm-4 col-lg-4 col-md-4"><div class="thumbnail"><img src="'+element.descripcion+'" alt=""><div class="caption"><h4 class="pull-right">$'+element.precio+'</h4><h4><a href="#" title="'+element.nombre+'">'+element.nombre+'</a></h4><p>See more snippets like this online store item at <a target="_blank" href="http://www.bootsnipp.com">Bootsnipp - http://ootsnipp.com</a>.</p></div><div class="ratings"><p class="pull-right">15 reviews</p><p><span class="glyphicon glyphicon-star"></span><span class="glyphicon lyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span></p></div></div></div>');
+                $('#products').append('<div class="col-sm-4 col-lg-4 col-md-4"><div class="thumbnail"><img src="'+element.descripcion+'" alt=""><div class="caption"><h4 class="pull-right">$'+element.precio+'</h4><h4><a href="#" title="'+element.nombre+'">'+element.nombre+'</a></h4><a href="javascript:void(0)" onclick="viewitem(\''+element.idml+'\');">Ver mas</a></div><div class="ratings"><p class="pull-right">15 reviews</p><p><span class="glyphicon glyphicon-star"></span><span class="glyphicon lyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span></p></div></div></div>');
                 /*$('body').append($('<div>', {
                     text: element.name
                 }));*/
             });
         });
+
+        function viewitem(item) {
+            $.getJSON('http://comprenacional.herokuapp.com/api/ml/get/'+item, function(data) {
+                //console.log(data);
+                $('#img-item').attr('src',data.pictures[0].url);
+                $('#item-name').html(data.title);
+                $('#item-price').html('$'+data.price);
+                $.each(data.pictures, function(index, element) {
+                    $('#item-desc').append('<img src="'+element.url+'" />');
+                });
+                $('#item-details').show();
+                $('#item-list').hide();
+
+            
+        });
+        }
+
+        function change() {
+                $('#item-details').hide();
+                $('#item-list').show();
+
+        }
     </script>
 
 </body>
